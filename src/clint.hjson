@@ -15,7 +15,7 @@
     { name: "NumCores",
       desc: "Number of cores",
       type: "int",
-      default: "2",
+      default: "1",
       local: "true"
     }
   ],
@@ -49,23 +49,6 @@
         hwaccess: "hro",
         fields: [
           { bits: "31:0", name: "MTIMECMP_HIGH", desc: "Machine Time Compare (High) Core 0" }
-        ]
-    },
-    {   name: "MTIMECMP_LOW1",
-        desc: "Machine Timer Compare",
-        swaccess: "rw",
-        hwaccess: "hro",
-        fields: [
-          { bits: "31:0", name: "MTIMECMP_LOW", desc: "Machine Time Compare (Low) Core 1" }
-        ]
-    },
-    {
-        name: "MTIMECMP_HIGH1",
-        desc: "Machine Timer Compare",
-        swaccess: "rw",
-        hwaccess: "hro",
-        fields: [
-          { bits: "31:0", name: "MTIMECMP_HIGH", desc: "Machine Time Compare (High) Core 1" }
         ]
     },
     { skipto: "0xBFF8" },

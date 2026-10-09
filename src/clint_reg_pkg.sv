@@ -7,7 +7,7 @@
 package clint_reg_pkg;
 
   // Param list
-  parameter int NumCores = 2;
+  parameter int NumCores = 1;
 
   // Address widths within the block
   parameter int BlockAw = 16;
@@ -32,14 +32,6 @@ package clint_reg_pkg;
 
   typedef struct packed {
     logic [31:0] q;
-  } clint_reg2hw_mtimecmp_low1_reg_t;
-
-  typedef struct packed {
-    logic [31:0] q;
-  } clint_reg2hw_mtimecmp_high1_reg_t;
-
-  typedef struct packed {
-    logic [31:0] q;
   } clint_reg2hw_mtime_low_reg_t;
 
   typedef struct packed {
@@ -58,11 +50,9 @@ package clint_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    clint_reg2hw_msip_mreg_t [1:0] msip; // [193:192]
-    clint_reg2hw_mtimecmp_low0_reg_t mtimecmp_low0; // [191:160]
-    clint_reg2hw_mtimecmp_high0_reg_t mtimecmp_high0; // [159:128]
-    clint_reg2hw_mtimecmp_low1_reg_t mtimecmp_low1; // [127:96]
-    clint_reg2hw_mtimecmp_high1_reg_t mtimecmp_high1; // [95:64]
+    clint_reg2hw_msip_mreg_t [0:0] msip; // [128:128]
+    clint_reg2hw_mtimecmp_low0_reg_t mtimecmp_low0; // [127:96]
+    clint_reg2hw_mtimecmp_high0_reg_t mtimecmp_high0; // [95:64]
     clint_reg2hw_mtime_low_reg_t mtime_low; // [63:32]
     clint_reg2hw_mtime_high_reg_t mtime_high; // [31:0]
   } clint_reg2hw_t;
@@ -74,37 +64,28 @@ package clint_reg_pkg;
   } clint_hw2reg_t;
 
   // Register offsets
-  parameter logic [BlockAw-1:0] CLINT_MSIP_0_OFFSET = 16'h 0;
-  parameter logic [BlockAw-1:0] CLINT_MSIP_1_OFFSET = 16'h 4;
+  parameter logic [BlockAw-1:0] CLINT_MSIP_OFFSET = 16'h 0;
   parameter logic [BlockAw-1:0] CLINT_MTIMECMP_LOW0_OFFSET = 16'h 4000;
   parameter logic [BlockAw-1:0] CLINT_MTIMECMP_HIGH0_OFFSET = 16'h 4004;
-  parameter logic [BlockAw-1:0] CLINT_MTIMECMP_LOW1_OFFSET = 16'h 4008;
-  parameter logic [BlockAw-1:0] CLINT_MTIMECMP_HIGH1_OFFSET = 16'h 400c;
   parameter logic [BlockAw-1:0] CLINT_MTIME_LOW_OFFSET = 16'h bff8;
   parameter logic [BlockAw-1:0] CLINT_MTIME_HIGH_OFFSET = 16'h bffc;
 
   // Register index
   typedef enum int {
-    CLINT_MSIP_0,
-    CLINT_MSIP_1,
+    CLINT_MSIP,
     CLINT_MTIMECMP_LOW0,
     CLINT_MTIMECMP_HIGH0,
-    CLINT_MTIMECMP_LOW1,
-    CLINT_MTIMECMP_HIGH1,
     CLINT_MTIME_LOW,
     CLINT_MTIME_HIGH
   } clint_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CLINT_PERMIT [8] = '{
-    4'b 1111, // index[0] CLINT_MSIP_0
-    4'b 1111, // index[1] CLINT_MSIP_1
-    4'b 1111, // index[2] CLINT_MTIMECMP_LOW0
-    4'b 1111, // index[3] CLINT_MTIMECMP_HIGH0
-    4'b 1111, // index[4] CLINT_MTIMECMP_LOW1
-    4'b 1111, // index[5] CLINT_MTIMECMP_HIGH1
-    4'b 1111, // index[6] CLINT_MTIME_LOW
-    4'b 1111  // index[7] CLINT_MTIME_HIGH
+  parameter logic [3:0] CLINT_PERMIT [5] = '{
+    4'b 1111, // index[0] CLINT_MSIP
+    4'b 1111, // index[1] CLINT_MTIMECMP_LOW0
+    4'b 1111, // index[2] CLINT_MTIMECMP_HIGH0
+    4'b 1111, // index[3] CLINT_MTIME_LOW
+    4'b 1111  // index[4] CLINT_MTIME_HIGH
   };
 
 endpackage
